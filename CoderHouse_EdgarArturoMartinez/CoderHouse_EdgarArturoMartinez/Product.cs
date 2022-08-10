@@ -1,42 +1,43 @@
 ﻿namespace CoderHouse_EdgarArturoMartinez
 {
-    internal class Product
+    public class Product
     {
         //Encapsulated fields
         private int _id;
-        private string _description;
-        private double _price;
-        private double _salesPrice;
-        private bool _stock;
-        private int _idUser;
+        private string _descripciones;
+        private double _costo;
+        private double _precioVenta;
+        private int _stock;
+        private int _idUsusario;
 
         //Properties to be get and set
         public int Id { get; set; }
-        public string Description { get; set; }
-        public double Price { get; set; }
-        public bool Stock { get; set; }
-        public int IdUser { get; set; }
+        public string Descripciones { get; set; }
+        public double Costo { get; set; }
+        public double PrecioVenta { get; set; }
+        public int Stock { get; set; }
+        public int IdUsuario { get; set; }
 
         //Default Constructor
         public Product()
         {
             _id = 0;
-            _description = String.Empty;
-            _price = 0;
-            _salesPrice = 0;
-            _stock = false;
-            _idUser = 0;
+            _descripciones = String.Empty;
+            _costo = 0;
+            _precioVenta = 0;
+            _stock = 0;
+            _idUsusario = 0;
         }
 
         //Parametrized Constructor
-        public Product(int id, string description, double price, double salesPrice, bool stock, int idUser)
+        public Product(int id, string descripciones, double costo, double precioVenta, int stock, int idUsuario)
         {
             this._id = id;
-            this._description = description;
-            this._price = price;
-            this._salesPrice = salesPrice;
+            this._descripciones = descripciones;
+            this._costo = costo;
+            this._precioVenta = precioVenta;
             this._stock = stock;
-            this._idUser = idUser;
+            this._idUsusario = idUsuario;
         }
     }
 }

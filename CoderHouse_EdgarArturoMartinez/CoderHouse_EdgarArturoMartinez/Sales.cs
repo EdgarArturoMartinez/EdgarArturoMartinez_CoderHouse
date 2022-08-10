@@ -1,27 +1,27 @@
 ﻿namespace CoderHouse_EdgarArturoMartinez
 {
-    internal class Sales
+    public class Sales
     {
         //Encapsulated fields
         private int _id;
-        private string _comments;
+        private string _comentarios;
 
         //Properties
         public int Id { get; set; }
-        public string Comments { get; set; }
+        public string Comentarios { get; set; }
 
         //Default constructor
         public Sales()
         {
             _id = 0;
-            _comments = String.Empty;
+            _comentarios = String.Empty;
         }
 
         //Parametrized Constructor
-        public Sales(int id, string comments)
+        public Sales(int id, string comentarios)
         {
             this._id = id;
-            this._comments = comments;
+            this._comentarios = comentarios;
         }
     }
 
