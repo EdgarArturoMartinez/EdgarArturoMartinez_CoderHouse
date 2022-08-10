@@ -4,6 +4,30 @@ namespace CoderHouse_EdgarArturoMartinez.Model
 {
     public class UserHandler : DataBaseHandler
     {
+        public void DeleteUser(int Id)
+        {
+            string query = "DELETE FROM Usuario " +
+                "WHERE Id = @id";
+
+            using (SqlConnection sqlConnection = new SqlConnection(ConnectionString))
+            {
+                SqlCommand sqlCommand = new SqlCommand(query, sqlConnection);
+                sqlCommand.Parameters.AddWithValue("@id", Id);
+
+                try
+                {
+                    sqlConnection.Open();
+                    sqlCommand.ExecuteNonQuery();
+                    sqlConnection.Close();
+                }
+
+                catch (Exception ex)
+                {
+
+                    throw new Exception("There is an error on query definition! " + ex.Message);
+                }
+            }
+        }
 
         public void UpdateUser(int Id, string Nombre, string Apellido, string NombreUsuario, string Contrasena, string Mail)
         {
@@ -35,7 +59,6 @@ namespace CoderHouse_EdgarArturoMartinez.Model
                 }
             }
         }
-
         public void InsertUser(string Nombre, string Apellido, string NombreUsuario, string Contrasena, string Mail)
         {
             string query = "INSERT INTO Usuario" +

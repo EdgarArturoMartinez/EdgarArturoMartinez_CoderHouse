@@ -6,6 +6,30 @@ namespace CoderHouse_EdgarArturoMartinez.Model
 {
     public class ProductHandler : DataBaseHandler
     {
+        public void DeleteProduct(int Id)
+        {
+            string query = "DELETE FROM Producto " +
+                "WHERE Id = @id";
+
+            using (SqlConnection sqlConnection = new SqlConnection(ConnectionString))
+            {
+                SqlCommand sqlCommand = new SqlCommand(query, sqlConnection);
+                sqlCommand.Parameters.AddWithValue("@id", Id);
+
+                try
+                {
+                    sqlConnection.Open();
+                    sqlCommand.ExecuteNonQuery();
+                    sqlConnection.Close();
+                }
+
+                catch (Exception ex)
+                {
+
+                    throw new Exception("There is an error on query definition! " + ex.Message);
+                }
+            }
+        }
         public void UpdateProduct(int Id, string Descripciones, double Costo, double PrecioVenta, int Stock)
         {
             string query = "UPDATE Producto " +
@@ -35,7 +59,6 @@ namespace CoderHouse_EdgarArturoMartinez.Model
                 }
             }
         }
-
         public void InsertProduct(string Descripciones, double Costo, double PrecioVenta, int Stock)
         {
             string query = "INSERT INTO Producto" +
@@ -64,7 +87,6 @@ namespace CoderHouse_EdgarArturoMartinez.Model
                 }
             }
         }
-
         public List<Product> GetProducts()
         {
             Console.WriteLine("***** Showing Producto Table from SQL DataBase ***** \r\n");

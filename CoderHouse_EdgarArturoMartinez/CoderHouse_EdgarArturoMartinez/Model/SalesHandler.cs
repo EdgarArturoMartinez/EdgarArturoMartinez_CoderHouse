@@ -4,6 +4,30 @@ namespace CoderHouse_EdgarArturoMartinez.Model
 {
     public class SalesHandler : DataBaseHandler
     {
+        public void DeleteSale(int Id)
+        {
+            string query = "DELETE FROM Venta " +
+                "WHERE Id = @id";
+
+            using (SqlConnection sqlConnection = new SqlConnection(ConnectionString))
+            {
+                SqlCommand sqlCommand = new SqlCommand(query, sqlConnection);
+                sqlCommand.Parameters.AddWithValue("@id", Id);             
+
+                try
+                {
+                    sqlConnection.Open();
+                    sqlCommand.ExecuteNonQuery();
+                    sqlConnection.Close();
+                }
+
+                catch (Exception ex)
+                {
+
+                    throw new Exception("There is an error on query definition! " + ex.Message);
+                }
+            }
+        }
         public void UpdateSale(int Id, string Comentarios)
         {
             string query = "UPDATE Venta " +
@@ -30,7 +54,6 @@ namespace CoderHouse_EdgarArturoMartinez.Model
                 }
             }
         }
-
         public void InsertSale(string Comentarios)
         {
             string query = "INSERT INTO Venta" +
