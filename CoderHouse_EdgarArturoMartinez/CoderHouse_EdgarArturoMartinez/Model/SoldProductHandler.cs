@@ -4,6 +4,33 @@ namespace CoderHouse_EdgarArturoMartinez.Model
 {
     public class SoldProductHandler : DataBaseHandler
     {
+        public void InsertSoldProduct(int Stock, int IdProducto)
+        {
+            string query = "INSERT INTO ProductoVendido" +
+                "(Stock, IdProducto, IdVenta)" +
+                "VALUES (@stock, @idProducto, 1)";
+
+            using (SqlConnection sqlConnection = new SqlConnection(ConnectionString))
+            {
+                SqlCommand sqlCommand = new SqlCommand(query, sqlConnection);
+                sqlCommand.Parameters.AddWithValue("@stock", Stock);
+                sqlCommand.Parameters.AddWithValue("@idProducto", IdProducto);                
+
+                try
+                {
+                    sqlConnection.Open();
+                    sqlCommand.ExecuteNonQuery();
+                    sqlConnection.Close();
+                }
+
+                catch (Exception ex)
+                {
+
+                    throw new Exception("There is an error on query definition! " + ex.Message);
+                }
+            }
+        }
+
         public List<SoldProduct> GetSoldProducts()
         {
             Console.WriteLine("***** Showing ProductVendido Table from SQL DataBase ***** \r\n");

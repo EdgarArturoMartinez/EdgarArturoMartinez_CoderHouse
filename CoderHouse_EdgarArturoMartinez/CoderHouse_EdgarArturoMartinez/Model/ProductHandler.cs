@@ -1,10 +1,40 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using System.Data.SqlClient;
 
 namespace CoderHouse_EdgarArturoMartinez.Model
 {
     public class ProductHandler : DataBaseHandler
     {
+        public void InsertProduct(string Descripciones, double Costo, double PrecioVenta, int Stock)
+        {
+            string query = "INSERT INTO Producto" +
+                "(Descripciones, Costo, PrecioVenta, Stock, IdUsuario)" +
+                "VALUES (@descripciones, @costo, @precioVenta, @stock, 1)";
+
+            using (SqlConnection sqlConnection = new SqlConnection(ConnectionString))
+            {
+                SqlCommand sqlCommand = new SqlCommand(query, sqlConnection);
+                sqlCommand.Parameters.AddWithValue("@descripciones", Descripciones);
+                sqlCommand.Parameters.AddWithValue("@costo", Costo);
+                sqlCommand.Parameters.AddWithValue("@precioVenta", PrecioVenta);
+                sqlCommand.Parameters.AddWithValue("@stock", Stock);
+
+                try
+                {
+                    sqlConnection.Open();
+                    sqlCommand.ExecuteNonQuery();                    
+                    sqlConnection.Close();
+                }
+
+                catch (Exception ex)
+                {
+
+                    throw new Exception("There is an error on query definition! " + ex.Message);
+                }
+            }
+        }
+
         public List<Product> GetProducts()
         {
             Console.WriteLine("***** Showing Producto Table from SQL DataBase ***** \r\n");

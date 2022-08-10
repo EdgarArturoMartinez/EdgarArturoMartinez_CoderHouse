@@ -4,6 +4,32 @@ namespace CoderHouse_EdgarArturoMartinez.Model
 {
     public class SalesHandler : DataBaseHandler
     {
+
+        public void InsertSale(string Comentarios)
+        {
+            string query = "INSERT INTO Venta" +
+                "(Comentarios)" +
+                "VALUES (@comentarios)";
+
+            using (SqlConnection sqlConnection = new SqlConnection(ConnectionString))
+            {
+                SqlCommand sqlCommand = new SqlCommand(query, sqlConnection);
+                sqlCommand.Parameters.AddWithValue("@comentarios", Comentarios);
+                
+                try
+                {
+                    sqlConnection.Open();
+                    sqlCommand.ExecuteNonQuery();
+                    sqlConnection.Close();
+                }
+
+                catch (Exception ex)
+                {
+
+                    throw new Exception("There is an error on query definition! " + ex.Message);
+                }
+            }
+        }
         public List<Sales> GetSales()
         {
             Console.WriteLine("***** Showing Venta Table from SQL DataBase ***** \r\n");

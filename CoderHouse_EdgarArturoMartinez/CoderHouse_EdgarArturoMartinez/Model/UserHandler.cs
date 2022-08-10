@@ -4,6 +4,36 @@ namespace CoderHouse_EdgarArturoMartinez.Model
 {
     public class UserHandler : DataBaseHandler
     {
+
+        public void InsertUser(string Nombre, string Apellido, string NombreUsuario, string Contrasena, string Mail)
+        {
+            string query = "INSERT INTO Usuario" +
+                "(Nombre, Apellido, NombreUsuario, Contraseña, Mail)" +
+                "VALUES (@nombre, @apellido, @nombreUsuario, @contrasena, @mail)";
+
+            using (SqlConnection sqlConnection = new SqlConnection(ConnectionString))
+            {
+                SqlCommand sqlCommand = new SqlCommand(query, sqlConnection);
+                sqlCommand.Parameters.AddWithValue("@nombre", Nombre);
+                sqlCommand.Parameters.AddWithValue("@apellido", Apellido);
+                sqlCommand.Parameters.AddWithValue("@nombreUsuario", NombreUsuario);
+                sqlCommand.Parameters.AddWithValue("@contrasena", Contrasena);
+                sqlCommand.Parameters.AddWithValue("@mail", Mail);
+
+                try
+                {
+                    sqlConnection.Open();
+                    sqlCommand.ExecuteNonQuery();
+                    sqlConnection.Close();
+                }
+
+                catch (Exception ex)
+                {
+
+                    throw new Exception("There is an error on query definition! " + ex.Message);
+                }
+            }
+        }
         public List<User> GetUsers()
         {
             Console.WriteLine("***** Showing Usuario Table from SQL DataBase ***** \r\n");
