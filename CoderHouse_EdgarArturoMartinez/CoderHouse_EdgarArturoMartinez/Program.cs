@@ -11,7 +11,121 @@ Console.WriteLine("    Welcome to Coder House C# Application     \n");
 //CreateProduct();
 //CreateUser();
 //CreateSale();
-//CreateSoldProduct();    
+//CreateSoldProduct();
+
+//UpdateProduct();
+//UpdateUser();
+//UpdateSales();
+//UpdateSoldProduct();
+
+
+void UpdateSoldProduct()
+{
+    ListAllSoldProducts();
+    Console.WriteLine("Please input Id Sold Product to modify information.");
+    int id = Convert.ToInt32(Console.ReadLine());
+    Console.WriteLine("Please input New Sold Product Stock");
+    int stock = Convert.ToInt32(Console.ReadLine());
+    Console.WriteLine("Please input New ID Producto");
+    int idProducto = Convert.ToInt32(Console.ReadLine());
+
+    SoldProductHandler objSoldProductHandlerUpdate = new SoldProductHandler();
+
+    try
+    {
+        objSoldProductHandlerUpdate.UpdateSoldProduct(id, stock, idProducto);
+        Console.WriteLine($"Sold Product : {idProducto}, has been Modified succesfully. \n");
+        ListAllSoldProducts();
+    }
+    catch (Exception ex)
+    {
+
+        Console.WriteLine("There was an error executing Update clause");
+    }
+}
+
+void UpdateSales()
+{
+    ListAllSales();
+    Console.WriteLine("Please input Id Sale to modify information.");
+    int id = Convert.ToInt32(Console.ReadLine());
+    Console.WriteLine("Please input New Sales Comment");
+    string comentarios = Console.ReadLine();
+
+    SalesHandler objSalesHandlerUpdate = new SalesHandler();
+
+    try
+    {
+        objSalesHandlerUpdate.UpdateSale(id, comentarios);
+        Console.WriteLine($"Sale: {comentarios}, has been Modified succesfully. \n");
+        ListAllSales();
+    }
+    catch (Exception ex)
+    {
+
+        Console.WriteLine("There was an error executing Update clause");
+    }
+}
+
+void UpdateUser()
+{
+    ListAllUsers();
+    Console.WriteLine("Please input Id User to modify information.");
+    int id = Convert.ToInt32(Console.ReadLine());
+    Console.WriteLine("Please input New User First Name");
+    string nombre = Console.ReadLine();
+    Console.WriteLine("Please input New User Last Name");
+    string apellido = Console.ReadLine();
+    Console.WriteLine("Please input  New UserName");
+    string nombreUsuario = Console.ReadLine();
+    Console.WriteLine("Please input New User Password");
+    string contrasena = Console.ReadLine();
+    Console.WriteLine("Please input New User Email");
+    string mail = Console.ReadLine();
+
+    UserHandler objUserHandlerUpdate = new UserHandler();
+
+    try
+    {
+        objUserHandlerUpdate.UpdateUser(id, nombre, apellido, nombreUsuario, contrasena, mail);
+        Console.WriteLine($"User: {nombreUsuario}, has been Modified succesfully. \n");
+        ListAllUsers();
+    }
+    catch (Exception ex)
+    {
+
+        Console.WriteLine("There was an error executing Update clause");
+    }
+}
+
+void UpdateProduct()
+{
+    ListAllProducts();
+    Console.WriteLine("Please input Id Product to modify information.");
+    int id = Convert.ToInt32(Console.ReadLine());
+    Console.WriteLine("Please input New Product Description");
+    string descripciones = Console.ReadLine();
+    Console.WriteLine("Please input New Product Cost");
+    double costo = Convert.ToDouble(Console.ReadLine());
+    Console.WriteLine("Please input  New Product Sales Price");
+    double precioVenta = Convert.ToDouble(Console.ReadLine());
+    Console.WriteLine("Please input New Product Stock");
+    int stock = Convert.ToInt32(Console.ReadLine());
+
+    ProductHandler objProductHandlerUpdate = new ProductHandler();
+
+    try
+    {
+        objProductHandlerUpdate.UpdateProduct(id, descripciones, costo, precioVenta, stock);
+        Console.WriteLine($"Product: {descripciones}, has been Modified succesfully. \n");
+        ListAllProducts();
+    }
+    catch (Exception ex)
+    {
+
+        Console.WriteLine("There was an error executing Update clause");
+    }
+}
 
 
 

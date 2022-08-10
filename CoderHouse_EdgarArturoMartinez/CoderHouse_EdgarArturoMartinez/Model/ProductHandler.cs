@@ -6,6 +6,36 @@ namespace CoderHouse_EdgarArturoMartinez.Model
 {
     public class ProductHandler : DataBaseHandler
     {
+        public void UpdateProduct(int Id, string Descripciones, double Costo, double PrecioVenta, int Stock)
+        {
+            string query = "UPDATE Producto " +
+                "SET Descripciones = @descripciones, Costo = @costo, PrecioVenta = @precioVenta, Stock = @stock " +
+                "WHERE Id = @id";
+
+            using (SqlConnection sqlConnection = new SqlConnection(ConnectionString))
+            {
+                SqlCommand sqlCommand = new SqlCommand(query, sqlConnection);
+                sqlCommand.Parameters.AddWithValue("@id", Id);
+                sqlCommand.Parameters.AddWithValue("@descripciones", Descripciones);
+                sqlCommand.Parameters.AddWithValue("@costo", Costo);
+                sqlCommand.Parameters.AddWithValue("@precioVenta", PrecioVenta);
+                sqlCommand.Parameters.AddWithValue("@stock", Stock);                
+
+                try
+                {
+                    sqlConnection.Open();
+                    sqlCommand.ExecuteNonQuery();
+                    sqlConnection.Close();
+                }
+
+                catch (Exception ex)
+                {
+
+                    throw new Exception("There is an error on query definition! " + ex.Message);
+                }
+            }
+        }
+
         public void InsertProduct(string Descripciones, double Costo, double PrecioVenta, int Stock)
         {
             string query = "INSERT INTO Producto" +
