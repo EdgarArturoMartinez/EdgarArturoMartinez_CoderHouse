@@ -218,5 +218,44 @@ namespace CoderHouse_EdgarArturoMartinez.Model
 
             return userList;
         }
+        public bool GetUsersByUserName(string UserName, string Password)
+        {            
+            List<User> userList = new List<User>();
+            string query = "SELECT Nombre FROM Usuario  " +
+                "WHERE NombreUsuario = @userName AND Contraseña = @password; ";
+
+            using (SqlConnection sqlConnection = new SqlConnection(ConnectionString))
+            {
+                SqlCommand sqlCommand = new SqlCommand(query, sqlConnection);
+                sqlCommand.Parameters.AddWithValue("@userName", UserName);
+                sqlCommand.Parameters.AddWithValue("@password", Password);
+
+                try
+                {
+                    sqlConnection.Open();
+                    SqlDataReader sqlDataReader = sqlCommand.ExecuteReader();
+                    if (!sqlDataReader.Read())
+                    {
+                        Console.WriteLine("User Name or Password are Incorrect, Impossible to Log In");   
+                        return false;
+                    }
+                    while (sqlDataReader.Read())
+                    {
+                        User objUser = new User();
+                        objUser.Contrasena = sqlDataReader["Nombre"].ToString();                        
+                        userList.Add(objUser);
+                    }
+                    sqlDataReader.Close();
+                    sqlConnection.Close();
+                }
+
+                catch (Exception ex)
+                {
+                    throw new Exception("There is an error on query definition! " + ex.Message);
+                }
+            }           
+
+            return true;
+        }
     }
 }

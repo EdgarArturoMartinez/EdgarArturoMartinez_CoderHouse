@@ -8,17 +8,59 @@ Console.WriteLine("    Welcome to Coder House C# Application     ");
 Console.WriteLine("----------------------------------------------------\n");
 
 
+//Execute Login Menu
+Login();
 
-bool showMenu = true;
-while (showMenu)
+
+#region LOGIN
+
+void Login()
 {
-    showMenu = MainMenu();
+    int attemptCounter = 3;
+    bool succesfulLogin = false;
+    do
+    {
+        Console.WriteLine("");
+        Console.WriteLine("**********************************************");
+        Console.WriteLine($"Login to CRUD Modules (You will have {attemptCounter} attempts) \n");        
+        Console.WriteLine("Please input your User Name: \n");
+        string userName = Console.ReadLine();
+        Console.WriteLine("Please input your Password: \n");
+        string password = Console.ReadLine();
+
+        UserHandler objUserHandler = new UserHandler();
+        if (objUserHandler.GetUsersByUserName(userName, password))
+        {
+            bool showMenu = true;
+            while (showMenu)
+            {
+                showMenu = MainMenu();           
+                succesfulLogin = true;
+            }
+        }
+        else
+        {
+            attemptCounter--;
+            if (attemptCounter == 0)
+            {
+                break;
+            }
+        }               
+    }
+    while (succesfulLogin is false);
+   
+    
 }
+
+#endregion
 
 #region OPTIONS MENU
 
 bool MainMenu()
 {
+    Console.WriteLine("**********************************************");
+    Console.WriteLine("    Welcome to Main Menu CRUD     ");
+    Console.WriteLine("----------------------------------------------------\n");
     Console.WriteLine("\r\nChoose Module to execute CRUD Methods: ");
     Console.WriteLine("1.  Products");
     Console.WriteLine("2.  Users");
