@@ -13,15 +13,25 @@ Console.WriteLine("    Welcome to Coder House C# Application     \n");
 //CreateSale();
 //CreateSoldProduct();
 
+//ListAllProducts();
+//ListAllUsers();
+//ListAllSales();
+//ListAllSoldProducts();
+
 //UpdateProduct();
 //UpdateUser();
 //UpdateSales();
 //UpdateSoldProduct();
 
-//DeleteSoldProduct();
-//DeleteSales();
-//DeleteUser();
 //DeleteProduct();
+//DeleteUser();
+//DeleteSales();
+//DeleteSoldProduct();
+
+
+
+
+
 
 #region Delete SQL Methods
 
@@ -134,7 +144,7 @@ void UpdateProduct()
     {
         objProductHandlerUpdate.UpdateProduct(id, descripciones, costo, precioVenta, stock);
         Console.WriteLine($"Product: {descripciones}, has been Modified succesfully. \n");
-        ListAllProducts();
+        ListAllProductsById(id);
     }
     catch (Exception ex)
     {
@@ -165,7 +175,30 @@ void UpdateUser()
     {
         objUserHandlerUpdate.UpdateUser(id, nombre, apellido, nombreUsuario, contrasena, mail);
         Console.WriteLine($"User: {nombreUsuario}, has been Modified succesfully. \n");
-        ListAllUsers();
+        ListAllUsersById(id);
+    }
+    catch (Exception ex)
+    {
+
+        Console.WriteLine("There was an error executing Update clause");
+    }
+}
+
+void UpdateSales()
+{
+    ListAllSales();
+    Console.WriteLine("Please input Id Sale to modify information.");
+    int id = Convert.ToInt32(Console.ReadLine());
+    Console.WriteLine("Please input New Sales Comment");
+    string comentarios = Console.ReadLine();
+
+    SalesHandler objSalesHandlerUpdate = new SalesHandler();
+
+    try
+    {
+        objSalesHandlerUpdate.UpdateSale(id, comentarios);
+        Console.WriteLine($"Sale: {comentarios}, has been Modified succesfully. \n");
+        ListAllSalesById(id);
     }
     catch (Exception ex)
     {
@@ -190,30 +223,7 @@ void UpdateSoldProduct()
     {
         objSoldProductHandlerUpdate.UpdateSoldProduct(id, stock, idProducto);
         Console.WriteLine($"Sold Product : {idProducto}, has been Modified succesfully. \n");
-        ListAllSoldProducts();
-    }
-    catch (Exception ex)
-    {
-
-        Console.WriteLine("There was an error executing Update clause");
-    }
-}
-
-void UpdateSales()
-{
-    ListAllSales();
-    Console.WriteLine("Please input Id Sale to modify information.");
-    int id = Convert.ToInt32(Console.ReadLine());
-    Console.WriteLine("Please input New Sales Comment");
-    string comentarios = Console.ReadLine();
-
-    SalesHandler objSalesHandlerUpdate = new SalesHandler();
-
-    try
-    {
-        objSalesHandlerUpdate.UpdateSale(id, comentarios);
-        Console.WriteLine($"Sale: {comentarios}, has been Modified succesfully. \n");
-        ListAllSales();
+        ListAllSoldProductsById(id);
     }
     catch (Exception ex)
     {
@@ -244,7 +254,7 @@ void CreateProduct()
 	{
 		objProductHandlerInsert.InsertProduct(descripciones, costo, precioVenta, stock);
 		Console.WriteLine($"Product: {descripciones}, has been inserted succesfully. \n");
-        ListAllProducts();
+        ListLastIdProduct();
 	}
 	catch (Exception ex)
 	{
@@ -272,7 +282,7 @@ void CreateUser()
     {
         objUserHandlerInsert.InsertUser(nombre, apellido, nombreUsuario, contrasena, mail);
         Console.WriteLine($"User: {nombreUsuario}, has been created succesfully. \n");
-        ListAllUsers(); 
+        ListLastIdUser(); 
     }
     catch (Exception ex)
     {
@@ -292,7 +302,7 @@ void CreateSale()
     {
         objSalesHandlerInsert.InsertSale(comentarios);
         Console.WriteLine($"Sale with Comment: {comentarios}, has been inserted succesfully.\n");
-        ListAllSales();
+        ListLastIdSale();
     }
     catch (Exception ex)
     {
@@ -314,7 +324,7 @@ void CreateSoldProduct()
     {
         objSoldProductHandlerInsert.InsertSoldProduct(stock, idProducto);
         Console.WriteLine($"Sold Product Id: {idProducto}, has been inserted succesfully. \n");
-        ListAllSoldProducts();
+        ListLastIdSoldProduct();
     }
     catch (Exception ex)
     {
@@ -366,5 +376,78 @@ void ListAllSoldProducts()
 
 #endregion
 
+
+#region SELECT By ID SQL Methods
+
+void ListAllProductsById(int id)
+{
+    Console.WriteLine("**** ***** ****");
+    ProductHandler objProductHandler = new ProductHandler();
+    objProductHandler.GetProductsById(id);
+    Console.WriteLine("");
+}
+
+void ListAllUsersById(int id)
+{
+    Console.WriteLine("**** ***** ****");
+    UserHandler objUserHandler = new UserHandler();
+    objUserHandler.GetUsersById(id);
+    Console.WriteLine("");
+}
+
+void ListAllSalesById(int id)
+{
+    Console.WriteLine("**** ***** ****");
+    SalesHandler objSalesHandler = new SalesHandler();
+    objSalesHandler.GetSalesById(id);
+    Console.WriteLine("");
+}
+
+void ListAllSoldProductsById(int id)
+{
+    Console.WriteLine("**** ***** ****");
+    SoldProductHandler spHandler = new SoldProductHandler();
+    spHandler.GetSoldProductsById(id);
+    Console.WriteLine("");
+}
+
+#endregion
+
+
+#region SELECT LAST ROW SQL Methods
+
+void ListLastIdProduct()
+{
+    Console.WriteLine("**** ***** ****");
+    ProductHandler objProductHandler = new ProductHandler();
+    objProductHandler.GetLastProduct();
+    Console.WriteLine("");
+}
+
+void ListLastIdUser()
+{
+    Console.WriteLine("**** ***** ****");
+    UserHandler objUserHandler = new UserHandler();
+    objUserHandler.GetLastUser();
+    Console.WriteLine("");
+}
+
+void ListLastIdSale()
+{
+    Console.WriteLine("**** ***** ****");
+    SalesHandler objSalesHandler = new SalesHandler();
+    objSalesHandler.GetLastSale();
+    Console.WriteLine("");
+}
+
+void ListLastIdSoldProduct()
+{
+    Console.WriteLine("**** ***** ****");
+    SoldProductHandler objSoldProductHandler = new SoldProductHandler();
+    objSoldProductHandler.GetLastIdSoldProducts();
+    Console.WriteLine("");
+}
+
+#endregion
 
 
